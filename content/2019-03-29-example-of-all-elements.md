@@ -1,6 +1,7 @@
 +++
 title = "Example of elements"
 description = "Post showcasing elements"
+taxonomies.tags = ["hello"]
 [extra]
 image = "favicon.ico"
 +++

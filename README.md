@@ -1,5 +1,8 @@
 # Light Speed
 
+Fork of the original [lightspeed theme](https://github.com/carpetscheme/lightspeed) with
+adjustements for my blog (e.g. multilingual, color changes).
+
 An insanely fast and performance-based Zola theme, ported from [Light Speed Jekyll](https://github.com/bradleytaunt/lightspeed).
 
 Some fun facts about the theme:

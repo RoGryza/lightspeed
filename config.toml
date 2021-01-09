@@ -1,6 +1,4 @@
 base_url = "https://quirky-perlman-34d0da.netlify.com"
-title = "Light Speed"
-description = "Zola theme with a perfect Lighthouse score"
 
 compile_sass = true
 generate_feed = true
@@ -8,19 +6,49 @@ generate_feed = true
 highlight_code = true
 highlight_theme = "gruvbox-light"
 
+default_language = "en"
+languages = [
+  { code = "pt", feed = true },
+]
+
+taxonomies = [
+  { name = "tags" },
+  { name = "tags", lang = "pt" },
+]
+
+[translations.en]
+dateFormat = "%B %d, %Y"
+title = "Light Speed"
+description = "Zola theme with a perfect Lighthouse score"
+
+[translations.pt]
+title = "Light Speed"
+description = "Tema do Zola com score perfeito no lightouse"
+About = "Sobre"
+"Source on Github" = "Código fonte no Github"
+dateFormat = "%d de %B, %Y"
+January = "Janeiro"
+February = "Fevereiro"
+March = "Março"
+April = "Abril"
+May = "Maio"
+June = "Junho"
+July = "Julho"
+August = "Agosto"
+September = "Setembro"
+October = "Outubro"
+November = "Novembro"
+December = "Dezembro"
+
 [extra]
 
 seo = true
 author = "El Carpet"
 ogimage = "lightning.png"
 
-zola = true
-netlify = true
-maintained_with_love = true
-
-footer_links = [
+nav_links = [
     {url = "$BASE_URL/about", name = "About"},
+    {url = "$BASE_URL/tags", name = "Tags"},
     {url = "$BASE_URL/atom.xml", name = "RSS"},
-    {url = "https://github.com/carpetscheme/lightspeed", name = "Source on Github"},
+    {url = "https://github.com/RoGryza/lightspeed", name = "Source on Github"},
 ]
-
