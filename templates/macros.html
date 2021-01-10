@@ -1,3 +1,14 @@
+{# workaround for when the builtin get_url isn't localized #}
+{% macro lang_url(path) %}
+{%- if lang is not defined or lang == config.default_language -%}
+{{ path }}
+{%- elif path is starting_with("/") -%}
+/{{ lang }}{{ path }}
+{%- else -%}
+{{ lang }}/{{ path }}
+{%- endif -%}
+{% endmacro %}
+
 {% macro maybe_trans(key) %}
 {%- if config.translations[lang][key] -%}
 {{ trans(key=key, lang=lang) }}

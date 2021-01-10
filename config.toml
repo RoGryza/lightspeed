@@ -25,6 +25,7 @@ description = "Zola theme with a perfect Lighthouse score"
 title = "Light Speed"
 description = "Tema do Zola com score perfeito no lightouse"
 About = "Sobre"
+"All Tags" = "Todas as Tags"
 "Source on Github" = "Código fonte no Github"
 dateFormat = "%d de %B, %Y"
 January = "Janeiro"
@@ -47,8 +48,8 @@ author = "El Carpet"
 ogimage = "lightning.png"
 
 nav_links = [
-    {url = "$BASE_URL/about", name = "About"},
-    {url = "$BASE_URL/tags", name = "Tags"},
-    {url = "$BASE_URL/atom.xml", name = "RSS"},
+    {url = "@/pages/about.md", name = "About"},
+    {url = "/tags", name = "Tags", lang = true},
+    {url = "/atom.xml", name = "RSS", lang = true},
     {url = "https://github.com/RoGryza/lightspeed", name = "Source on Github"},
 ]

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>All Tags</h1>
+<h1>{{ macros::maybe_trans(key="All Tags") }}</h1>
 <ul class="taglist">
   {% for term in terms | sort(attribute="name") %}
   <li>

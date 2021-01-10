@@ -1,5 +1,17 @@
 {% import "macros.html" as macros %}
-{% set lang = lang | default(value=config.default_language) %}
+{%- set lang = lang | default(value=config.default_language) -%}
+{%- if page is defined -%}
+{%- set translations = page.translations -%}
+{%- elif section is defined -%}
+{%- set translations = section.translations -%}
+{%- else -%}
+{%- set translations = [] -%}
+{%- endif -%}
+{%- if lang != config.default_language -%}
+{# translations doesn't seem to contain default_language by default #}
+{%- set def_translation = { lang = config.default_language, permalink=get_url(
+{%- set translations = translations | concat(with=[{ lang = config.default_language
+{%- endif -%}
 
 <!DOCTYPE html>
 <html lang="{{ lang }}">
@@ -11,7 +23,14 @@
     <title>{% block title %}{{ trans(key="title", lang=lang) }} &middot; {{ trans(key="description", lang=lang) }}{% endblock title %}</title>
     <meta name="description" content="{% block description %}{{ trans(key="description", lang=lang) }}{% endblock description %}" />
     <link rel="shortcut icon"  href="{{ get_url(path="favicon.ico") | safe }}" />
-    <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path="atom.xml") | safe }}">
+    {# workaround for https://github.com/getzola/zola/issues/1250 #}
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ macros::lang_url(path="atom.xml") | safe }}">
+    {%- set translations = page.translations | default(value=section.translations) | default(value=[]) -%}
+    {% for translation in translations -%}
+    {%- if translation.lang != lang -%}
+    <link rel="alternate" href="{{ translation.permalink | safe }}" hreflang="{{ translation.lang }}"/>
+    {%- endif -%}
+    {%- endfor %}
 
     <link rel="stylesheet" href="/style.css"/>
 
@@ -50,13 +69,22 @@
       {% block header %}
       <header role="banner">
         <h3 style="margin-top:0;">
-          <a href="{{ config.base_url | safe }}" title="Home">{{ trans(key="title", lang=lang) }}</a>
+          <a href="{{ macros::lang_url(path="/") | safe }}" title="Home">{{ trans(key="title", lang=lang) }}</a>
           <br /><small>{{ trans(key="description", lang=lang) }}</small>
         </h3>
         {% if config.extra.nav_links %}
         <nav style="margin-bottom:1rem;" role="navigation">
           {% for item in config.extra.nav_links %}
-            <a href="{{ item.url | replace(from="$BASE_URL", to=config.base_url) | safe }}">
+            {%- if item.feed -%}
+            {%- set item_url = get_url(path=feed_path) -%}
+            {%- elif item.url is starting_with("http") -%}
+            {%- set item_url = item.url -%}
+            {%- elif item.lang -%}
+            {%- set item_url = item.url -%}
+            {%- else -%}
+            {%- set item_url = get_url(path=item.url, lang=lang) -%}
+            {%- endif -%}
+            <a href="{{ item_url }}">
               {{ macros::maybe_trans(key=item.name) }}
             </a>
             {% if loop.last %}{% else %}
