@@ -1,6 +1,7 @@
 +++
 title = "Code Snippets"
 description =  "Post about code snippets"
+taxonomies.tags = ["snippets"]
 +++
 
 Code blocks.. with automatic syntax highlighting!

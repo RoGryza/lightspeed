@@ -1,6 +1,7 @@
 +++
 title = "Hello World!"
 description = "Post about hello world"
+taxonomies.tags = ["hello", "world"]
 +++
 
 Hello World!

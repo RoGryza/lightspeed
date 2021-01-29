@@ -1,7 +1,16 @@
 {% macro post_in_list(post) %}
 <li>
-  <a href="{{ post.permalink | safe }}">{{ post.title }}</a>
-  <time style="font-size:90%;" datetime="{{ post.date | date(format="%+") }}">{{ post.date | date(format="%B %d, %Y") }}</time>
+  <div class="headline">
+    <a href="{{ post.permalink | safe }}">{{ post.title }}</a>
+    <time style="font-size:90%;" datetime="{{ post.date | date(format="%+") }}">
+      {{ post.date | date(format="%B %d, %Y") }}
+    </time>
+  </div>
+  <ul class="taglist inline">
+    {% for tag in post.taxonomies.tags %}
+    <li><a href="{{ get_taxonomy_url(kind="tags", name=tag) }}">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
 </li>
 {% endmacro post_in_list %}
 
